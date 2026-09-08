@@ -321,6 +321,32 @@ seam, the same one `Agent::fake()` uses. Only provider, model and timeout preced
 Promptable helpers; `Resolver::callProtected()` is the single place that reaches them, and the only thing to
 touch when the SDK ships a public `resolve()` hook (#767).
 
+## Prior art
+
+[`refinephp/laravel-ai-batch`](https://github.com/refinephp/laravel-ai-batch) addresses the same problem and
+reaches the same conclusion about the SDK: with no public resolved-request API, a batch package has to reach a
+protected seam to obtain the request body. Its
+[compatibility notes](https://github.com/refinephp/laravel-ai-batch/blob/main/docs/compatibility.md) are worth
+reading as a statement of that risk. Compared here against its v0.1.2 (July 2026).
+
+| | this package | refinephp/laravel-ai-batch |
+|---|---|---|
+| Providers | OpenAI, Anthropic, OpenRouter, plus `Batch::extend()` | OpenAI |
+| `laravel/ai` | `^0.11.0` | `0.9.1` exactly |
+| Results | `AgentResponse` / `StructuredAgentResponse` | decoded provider JSON |
+| Entry point | `Resolvable` on the agent, then `Batch::of()` | `AiBatch` facade, then `forProvider()->agent()->add()` |
+| Polling | self-releasing job with `then()` / `catch()` | `ai:batch:poll` command you schedule |
+| Test helpers | `Batch::fake()` with assertions | — |
+
+The differences that tend to matter: it pins `laravel/ai` to one exact version, and its results are the
+provider's own JSON, which the application maps back to something useful itself. Turning results into the same
+response objects the synchronous path produces is the point of this package, so that mapping lives here
+instead, in the SDK's own gateway code.
+
+It ships things this package does not, including artisan commands for status, cancellation and polling, a
+facade, cache-based lifecycle locking, and request-count and payload-size limits matching OpenAI's documented
+maximums.
+
 ## Contributing
 
 Run `composer check` (Pint, PHPStan level 6, Pest) before opening a pull request. The same three steps run
