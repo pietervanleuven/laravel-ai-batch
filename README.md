@@ -24,7 +24,7 @@ there is no second mapping layer to drift.
 ## Installation
 
 ```bash
-composer require prvn/laravel-ai-batch
+composer require pietervanleuven/laravel-ai-batch
 ```
 
 The service provider is auto-discovered. Run the migration, which creates the `ai_batch_requests` table
@@ -320,3 +320,16 @@ Request bodies come from the SDK's own gateways: the batch gateways here subclas
 seam, the same one `Agent::fake()` uses. Only provider, model and timeout precedence live in `protected`
 Promptable helpers; `Resolver::callProtected()` is the single place that reaches them, and the only thing to
 touch when the SDK ships a public `resolve()` hook (#767).
+
+## Contributing
+
+Run `composer check` (Pint, PHPStan level 6, Pest) before opening a pull request. The same three steps run
+in CI against PHP 8.3, 8.4 and 8.5.
+
+## Security
+
+If you discover a security issue, email pieter.van.leuven@gmail.com rather than opening a public issue.
+
+## License
+
+MIT. See [LICENSE.md](LICENSE.md).

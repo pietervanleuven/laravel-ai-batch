@@ -2,6 +2,17 @@
     "name": "pietervanleuven/laravel-ai-batch",
     "description": "Asynchronous batch API support (OpenAI, Anthropic, OpenRouter) for the Laravel AI SDK.",
     "license": "MIT",
+    "homepage": "https://github.com/pietervanleuven/laravel-ai-batch",
+    "authors": [
+        {
+            "name": "Pieter Van Leuven",
+            "email": "pieter.van.leuven@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/pietervanleuven/laravel-ai-batch/issues",
+        "source": "https://github.com/pietervanleuven/laravel-ai-batch"
+    },
     "keywords": [
         "laravel",
         "ai",
@@ -24,7 +35,7 @@
         "pestphp/pest-plugin-laravel": "^3.0|^4.0",
         "phpstan/phpstan": "^2.1"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {

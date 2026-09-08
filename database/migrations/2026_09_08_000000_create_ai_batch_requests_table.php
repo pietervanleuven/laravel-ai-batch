@@ -2,13 +2,14 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Builder;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('ai_batch_requests', function (Blueprint $table): void {
+        $this->schema()->create($this->table(), function (Blueprint $table): void {
             $table->id();
             $table->string('batch_id');
             $table->string('provider');
@@ -25,6 +26,21 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('ai_batch_requests');
+        $this->schema()->dropIfExists($this->table());
+    }
+
+    public function getConnection(): ?string
+    {
+        return config('ai-batch.database.connection');
+    }
+
+    protected function schema(): Builder
+    {
+        return Schema::connection($this->getConnection());
+    }
+
+    protected function table(): string
+    {
+        return config('ai-batch.database.table', 'ai_batch_requests');
     }
 };
