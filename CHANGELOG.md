@@ -3,6 +3,13 @@
 All notable changes to this package are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.1] - 2026-09-08
+
+### Added
+
+- A prior art section in the README, recording what `refinephp/laravel-ai-batch` covers and how it differs
+  (provider coverage, its exact `laravel/ai` pin, and whether results come back as SDK response objects).
+
 ## [0.1.0] - 2026-09-08
 
 ### Added
@@ -22,4 +29,5 @@ All notable changes to this package are documented here. The format follows
 - `Batch::fake()` with `assertSubmitted()`, `assertSubmittedTimes()` and `assertNothingSubmitted()`;
   `Agent::fake()` alone keeps batches off the network.
 
+[0.1.1]: https://github.com/pietervanleuven/laravel-ai-batch/releases/tag/v0.1.1
 [0.1.0]: https://github.com/pietervanleuven/laravel-ai-batch/releases/tag/v0.1.0
