@@ -19,7 +19,7 @@ there is no second mapping layer to drift.
 
 - PHP 8.3+
 - Laravel 12 or 13
-- `laravel/ai` ^0.11
+- `laravel/ai` ^1.0
 
 ## Installation
 
@@ -332,7 +332,7 @@ reading as a statement of that risk. Compared here against its v0.1.2 (July 2026
 | | this package | refinephp/laravel-ai-batch |
 |---|---|---|
 | Providers | OpenAI, Anthropic, OpenRouter, plus `Batch::extend()` | OpenAI |
-| `laravel/ai` | `^0.11.0` | `0.9.1` exactly |
+| `laravel/ai` | `^1.0` | `0.9.1` exactly |
 | Results | `AgentResponse` / `StructuredAgentResponse` | decoded provider JSON |
 | Entry point | `Resolvable` on the agent, then `Batch::of()` | `AiBatch` facade, then `forProvider()->agent()->add()` |
 | Polling | self-releasing job with `then()` / `catch()` | `ai:batch:poll` command you schedule |

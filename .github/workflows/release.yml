@@ -1,0 +1,27 @@
+name: Release
+
+# release-please keeps a release PR open with the next version and its
+# changelog, built from the Conventional Commits merged into main. Merging that
+# PR tags the release and publishes it as a GitHub release; Packagist picks up
+# the tag.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: googleapis/release-please-action@v5
+        with:
+          # PRs opened with the default token do not trigger CI. Set a
+          # RELEASE_PLEASE_TOKEN secret (a fine-grained PAT) to get CI on
+          # release PRs.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || github.token }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

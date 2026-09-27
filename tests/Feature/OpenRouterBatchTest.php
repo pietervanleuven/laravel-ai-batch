@@ -146,7 +146,7 @@ test('results are read inline from the completed batch', function (): void {
     expect($results->keys()->all())->toBe(['two', 'one', 'bad'])
         ->and($results['one'])->toBeInstanceOf(AgentResponse::class)
         ->and($results['one']->text)->toBe('First summary')
-        ->and($results['one']->usage->completionTokens)->toBe(36)
+        ->and($results['one']->usage->outputTokens)->toBe(36)
         ->and($results['one']->meta->model)->toBe('anthropic/claude-sonnet-5')
         ->and($results['bad'])->toBeInstanceOf(BatchRequestFailed::class)
         ->and($results['bad']->code)->toBe('invalid_request_error')

@@ -84,4 +84,4 @@ If `laravel/ai` changes any of these, fix it in the gateway or in `Resolver`, an
 
 ## Documentation
 
-User-facing behaviour changes need a README update and a `CHANGELOG.md` entry under *Unreleased*. When a gateway changes because a provider changed, re-read the vendor docs listed under *Provider API references* in the README and update the *Last checked* date. Keep README examples truthful: they must match what the code and tests actually do.
+User-facing behaviour changes need a README update. Don't edit `CHANGELOG.md`: release-please generates it from Conventional Commit messages (`feat:`, `fix:`, `feat!:` for breaking changes), so write the commit or PR title with that in mind. When a gateway changes because a provider changed, re-read the vendor docs listed under *Provider API references* in the README and update the *Last checked* date. Keep README examples truthful: they must match what the code and tests actually do.
