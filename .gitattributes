@@ -1,9 +1,19 @@
+# Path-based git attributes
+# https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html
+
+# Normalise line endings, so Windows checkouts match the LF fixtures in tests.
 * text=auto eol=lf
 
+# Ignore all test and documentation with "export-ignore".
 /.github            export-ignore
-/tests              export-ignore
 /.gitattributes     export-ignore
 /.gitignore         export-ignore
-/phpstan.neon       export-ignore
-/phpunit.xml        export-ignore
+/.editorconfig      export-ignore
+/phpunit.xml.dist   export-ignore
+/tests              export-ignore
+/AGENTS.md          export-ignore
 /CHANGELOG.md       export-ignore
+/CONTRIBUTORS.md    export-ignore
+/phpstan.neon.dist  export-ignore
+/phpstan-baseline.neon export-ignore
+/pint.json          export-ignore

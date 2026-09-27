@@ -1,6 +1,13 @@
 /vendor
+/build
+/coverage
+/node_modules
 /.idea
 /.phpunit.cache
 /.phpunit.result.cache
 composer.lock
+phpunit.xml
+phpstan.neon
+testbench.yaml
 .env
+.DS_Store
