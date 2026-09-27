@@ -95,6 +95,10 @@ Before submitting a pull request:
 - **Document any change in behaviour.** Keep `README.md` up to date and add a line to `CHANGELOG.md` under *Unreleased*. When a gateway changes because a provider changed, update the *Last checked* date under *Provider API references* in the README.
 - **Consider the release cycle.** We follow [SemVer v2.0.0](https://semver.org/). Don't break public APIs at random. While the package is 0.x, breaking changes go in minor versions and are called out in the changelog.
 - **One pull request per feature.** If you want to do more than one thing, send multiple pull requests.
+- **Use [Conventional Commits](https://www.conventionalcommits.org).** Commit messages and PR titles start with a type:
+  `feat` (new capability, minor), `fix` (bug, patch), `feat!` / `fix!` (breaking, minor while below 1.0), or `docs`,
+  `test`, `ci`, `build`, `refactor`, `chore`. Use the provider as the scope where it fits: `fix(anthropic): …`.
+  PRs are squash-merged with the PR title as the commit message, so a check rejects titles that don't follow the format.
 - **Send a coherent history.** Make sure each commit in your pull request is meaningful. If you made several intermediate commits while developing, [squash them](https://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
 
 ## Releases
