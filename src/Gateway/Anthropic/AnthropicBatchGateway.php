@@ -115,7 +115,7 @@ class AnthropicBatchGateway extends AnthropicGateway implements BatchGateway
                 continue;
             }
 
-            $customId = (string) ($line['custom_id'] ?? '');
+            $customId = $this->customId($line);
 
             yield $customId => $this->parseLine($customId, $line, $provider, $contexts, $structured);
         }

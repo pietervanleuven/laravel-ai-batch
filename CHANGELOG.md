@@ -24,6 +24,8 @@ All notable changes to this package are documented here. The format follows
 ### Fixed
 
 - The assistant message passed to `withMessages()` is typed as a `Collection<int, Message>`, as the SDK expects.
+- A provider result without a usable custom id, or with a custom id that was already returned, now throws a
+  `BatchException` instead of being stored under an empty key or overwriting an earlier result.
 
 ## [0.1.1] - 2026-09-08
 
