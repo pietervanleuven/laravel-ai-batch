@@ -17,6 +17,24 @@ trait ParsesJsonLines
     protected int $jsonLineChunkSize = 65536;
 
     /**
+     * Extract the identifier used to correlate a provider result with its request.
+     *
+     * A valid JSON object without an identifier must not become an empty result key.
+     *
+     * @param  array<string, mixed>  $line
+     */
+    protected function customId(array $line): string
+    {
+        $customId = $line['custom_id'] ?? null;
+
+        if ((! is_string($customId) && ! is_int($customId)) || ($customId = (string) $customId) === '') {
+            throw new BatchException('A batch result line carries no custom id.');
+        }
+
+        return $customId;
+    }
+
+    /**
      * Decode a JSONL document line by line without holding the whole body in memory.
      *
      * A line that cannot be decoded yields a BatchRequestFailed when its custom id is

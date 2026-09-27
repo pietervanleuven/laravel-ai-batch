@@ -340,6 +340,24 @@ test('garbage without a custom id aborts the read loudly', function (): void {
     Batch::find('batch_abc', 'openai')->results();
 })->throws(BatchException::class, 'no custom id');
 
+test('a valid result without a custom id aborts the read loudly', function (): void {
+    Http::fake([
+        'api.openai.com/v1/batches/batch_abc' => Http::response(openAiBatch('completed', ['output_file_id' => 'file-out'])),
+        'api.openai.com/v1/files/file-out/content' => Http::response(json_encode(['response' => ['status_code' => 200, 'body' => []]])),
+    ]);
+
+    Batch::find('batch_abc', 'openai')->results();
+})->throws(BatchException::class, 'no custom id');
+
+test('duplicate result ids abort the read instead of overwriting a result', function (): void {
+    Http::fake([
+        'api.openai.com/v1/batches/batch_abc' => Http::response(openAiBatch('completed', ['output_file_id' => 'file-out'])),
+        'api.openai.com/v1/files/file-out/content' => Http::response(openAiOutputLine('same', 'one')."\n".openAiOutputLine('same', 'two')),
+    ]);
+
+    Batch::find('batch_abc', 'openai')->results();
+})->throws(BatchException::class, 'duplicate results');
+
 test('the batch input file goes through the SDK file provider so Files::fake applies', function (): void {
     Event::fake([FileStored::class]);
     Files::fake();

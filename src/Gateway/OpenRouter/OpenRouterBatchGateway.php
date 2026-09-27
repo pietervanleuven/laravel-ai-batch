@@ -12,6 +12,7 @@ use AiBatch\Exceptions\BatchException;
 use AiBatch\Exceptions\BatchNotReadyException;
 use AiBatch\Gateway\Concerns\BuildsAgentResponses;
 use AiBatch\Gateway\Concerns\NarrowsProviders;
+use AiBatch\Gateway\Concerns\ParsesJsonLines;
 use AiBatch\Gateway\Concerns\ResolvesRequestContext;
 use AiBatch\Requests\RequestContext;
 use AiBatch\Requests\ResolvedRequest;
@@ -34,7 +35,7 @@ use Throwable;
  */
 class OpenRouterBatchGateway extends OpenRouterGateway implements BatchGateway
 {
-    use BuildsAgentResponses, NarrowsProviders, ResolvesRequestContext;
+    use BuildsAgentResponses, NarrowsProviders, ParsesJsonLines, ResolvesRequestContext;
 
     public function textEndpoint(): string
     {
@@ -120,7 +121,7 @@ class OpenRouterBatchGateway extends OpenRouterGateway implements BatchGateway
         }
 
         foreach ($batch->raw['results'] ?? [] as $result) {
-            $customId = (string) ($result['custom_id'] ?? '');
+            $customId = $this->customId($result);
 
             yield $customId => $this->parseResult($customId, $result, $provider, $contexts, $structured);
         }

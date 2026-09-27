@@ -1,0 +1,69 @@
+name: Bug Report
+description: Report an Issue or Bug with the Package
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please remove API keys, and any prompt or response content you can't share, before submitting.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect to happen? Include the full exception message and the batch status if the problem is with a submitted batch.
+    validations:
+      required: true
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: How to reproduce the bug
+      description: The agent class (or a trimmed version of it), the code that resolves and submits the batch, and how you read the results (`results()`, `each()`, or `then()` on the queue). A failing test using `Http::fake()` is ideal.
+    validations:
+      required: true
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Provider
+      options:
+        - OpenAI
+        - Anthropic
+        - OpenRouter
+        - Other (custom gateway via Batch::extend() or config)
+        - Not provider-specific (resolve(), Batch::fake(), batch store, …)
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: Configuration
+      description: Your `config/ai-batch.php` if you published it (or the `AI_BATCH_*` env values you set), and the relevant `ai.providers` entry from `config/ai.php` **without the key**.
+      render: php
+  - type: input
+    id: package-version
+    attributes:
+      label: Package Version
+      placeholder: 0.1.1
+    validations:
+      required: true
+  - type: input
+    id: laravel-ai-version
+    attributes:
+      label: laravel/ai Version
+      placeholder: 0.11.0
+    validations:
+      required: true
+  - type: input
+    id: laravel-version
+    attributes:
+      label: Laravel Version
+      placeholder: 13.0.0
+    validations:
+      required: true
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP Version
+      placeholder: 8.4.0
+    validations:
+      required: true

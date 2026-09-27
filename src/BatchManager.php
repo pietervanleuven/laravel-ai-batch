@@ -8,6 +8,7 @@ use AiBatch\Contracts\ResolvesTextRequests;
 use AiBatch\Events\BatchRequestCompleted;
 use AiBatch\Events\BatchRequestErrored;
 use AiBatch\Events\BatchSubmitted;
+use AiBatch\Exceptions\BatchException;
 use AiBatch\Exceptions\UnsupportedBatchProviderException;
 use AiBatch\Gateway\FakeBatchGateway;
 use AiBatch\Requests\ResolvedRequest;
@@ -128,7 +129,14 @@ class BatchManager
             $batch->provider, $batch, $contexts, $structured,
         );
 
+        $seen = [];
+
         foreach ($iterable as $customId => $result) {
+            if (isset($seen[$customId])) {
+                throw new BatchException("The batch provider returned duplicate results for custom id [{$customId}].");
+            }
+
+            $seen[$customId] = true;
             $request = $batch->requests[$customId] ?? null;
 
             if ($result instanceof AgentResponse) {

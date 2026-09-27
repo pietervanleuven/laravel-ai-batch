@@ -153,7 +153,7 @@ class OpenAiBatchGateway extends OpenAiGateway implements BatchGateway
                     continue;
                 }
 
-                $customId = (string) ($line['custom_id'] ?? '');
+                $customId = $this->customId($line);
 
                 yield $customId => $this->parseLine($customId, $line, $provider, $contexts, $structured);
             }
