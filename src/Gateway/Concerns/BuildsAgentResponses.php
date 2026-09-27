@@ -5,6 +5,7 @@ namespace AiBatch\Gateway\Concerns;
 use Illuminate\Support\Collection;
 use Laravel\Ai\Gateway\StepResponse;
 use Laravel\Ai\Messages\AssistantMessage;
+use Laravel\Ai\Messages\Message;
 use Laravel\Ai\Responses\AgentResponse;
 use Laravel\Ai\Responses\Data\Step;
 use Laravel\Ai\Responses\StructuredAgentResponse;
@@ -20,6 +21,7 @@ trait BuildsAgentResponses
             new Step($step->text, $step->toolCalls, [], $step->finishReason, $step->usage, $step->meta),
         ]);
 
+        /** @var Collection<int, Message> $messages */
         $messages = new Collection([
             new AssistantMessage($step->text, collect($step->toolCalls), $step->providerContentBlocks, $step->meta->provider),
         ]);
