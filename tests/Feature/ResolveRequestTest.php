@@ -15,7 +15,9 @@ use Laravel\Ai\Events\PromptingAgent;
 use Laravel\Ai\Events\StartingStep;
 use Laravel\Ai\Files\Image;
 use Laravel\Ai\Messages\AssistantMessage;
+use Laravel\Ai\Messages\Message;
 use Laravel\Ai\Messages\UserMessage;
+use Laravel\Ai\PendingStep;
 use Laravel\Ai\Prompts\AgentPrompt;
 use Tests\Fixtures\Agents\AnthropicAgent;
 use Tests\Fixtures\Agents\AssistantAgent;
@@ -105,12 +107,10 @@ test('provider and model can be overridden and agent attributes are honoured', f
 
 test('agent middleware runs before the request is resolved', function (): void {
     $agent = (new AssistantAgent)->withMiddleware([
-        function (AgentPrompt $prompt, Closure $next) {
-            return $next(new AgentPrompt(
-                $prompt->agent, strtoupper($prompt->prompt), $prompt->attachments, $prompt->provider, $prompt->model, $prompt->timeout,
-                invocationId: $prompt->invocationId,
-            ));
-        },
+        fn (PendingStep $step, Closure $next) => $next($step->withMessages(array_map(
+            fn (Message $message): Message => $message instanceof UserMessage ? new UserMessage(strtoupper($message->content)) : $message,
+            $step->messages,
+        ))),
     ]);
 
     $request = $agent->resolve('shout');

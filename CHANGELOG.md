@@ -7,6 +7,10 @@ All notable changes to this package are documented here. The format follows
 
 ### Changed
 
+- **Breaking:** requires `laravel/ai` ^1.0. Results follow the SDK's 1.0 response shapes: `usage` is a `TextUsage`
+  whose `inputTokens` / `outputTokens` include cached and reasoning tokens, steps and messages carry
+  `reasoning` and `replayBlocks`, and agent middleware receives a `PendingStep` while a request is resolved.
+  Stay on 0.1.x for `laravel/ai` 0.11.
 - CI is split into separate workflows for tests, static analysis and code style, replacing the single
   `tests.yml`.
 - Tests run against Laravel 12 and 13, with both lowest and stable dependencies, on Ubuntu and Windows.
@@ -24,7 +28,6 @@ All notable changes to this package are documented here. The format follows
 
 ### Fixed
 
-- `laravel/ai` is now required at `^0.11.1`: OpenRouter batch submission does not work with 0.11.0.
 - The assistant message passed to `withMessages()` is typed as a `Collection<int, Message>`, as the SDK expects.
 - A provider result without a usable custom id, or with a custom id that was already returned, now throws a
   `BatchException` instead of being stored under an empty key or overwriting an earlier result.
