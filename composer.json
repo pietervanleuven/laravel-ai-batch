@@ -1,6 +1,6 @@
 {
     "name": "pietervanleuven/laravel-ai-batch",
-    "description": "Asynchronous batch API support (OpenAI, Anthropic, OpenRouter) for the Laravel AI SDK.",
+    "description": "Run your existing laravel/ai agents through the OpenAI, Anthropic and OpenRouter batch APIs at about half the token price, and get back the same AgentResponse objects you already use.",
     "license": "MIT",
     "homepage": "https://github.com/pietervanleuven/laravel-ai-batch",
     "authors": [
