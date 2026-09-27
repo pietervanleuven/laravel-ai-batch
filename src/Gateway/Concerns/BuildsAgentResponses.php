@@ -18,12 +18,15 @@ trait BuildsAgentResponses
     protected function toAgentResponse(StepResponse $step, string $invocationId): AgentResponse
     {
         $steps = new Collection([
-            new Step($step->text, $step->toolCalls, [], $step->finishReason, $step->usage, $step->meta),
+            new Step(
+                $step->text, $step->toolCalls, [], $step->finishReason, $step->usage, $step->meta,
+                $step->reasoning, $step->replayBlocks, $step->providerToolCalls,
+            ),
         ]);
 
         /** @var Collection<int, Message> $messages */
         $messages = new Collection([
-            new AssistantMessage($step->text, collect($step->toolCalls), $step->providerContentBlocks, $step->meta->provider),
+            new AssistantMessage($step->text, collect($step->toolCalls), $step->replayBlocks, $step->meta->provider),
         ]);
 
         $response = $step->structured !== null
@@ -34,6 +37,7 @@ trait BuildsAgentResponses
             ->withMessages($messages)
             ->withToolCallsAndResults(collect($step->toolCalls), new Collection)
             ->withSteps($steps)
+            ->withReasoning($step->reasoning)
             ->withRawResponse($step->raw);
 
         return $response;

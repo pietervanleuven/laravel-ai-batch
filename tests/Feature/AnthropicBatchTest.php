@@ -95,7 +95,7 @@ test('results are streamed from the results endpoint', function (): void {
     expect($results->keys()->all())->toBe(['two', 'one', 'structured', 'bad', 'late'])
         ->and($results['one'])->toBeInstanceOf(AgentResponse::class)
         ->and($results['one']->text)->toBe('First summary')
-        ->and($results['one']->usage->completionTokens)->toBe(36)
+        ->and($results['one']->usage->outputTokens)->toBe(36)
         ->and($results['one']->meta->model)->toBe('claude-sonnet-5')
         ->and($results['structured'])->toBeInstanceOf(StructuredAgentResponse::class)
         ->and($results['structured']['sentiment'])->toBe('mixed')

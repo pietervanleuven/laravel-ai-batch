@@ -25,7 +25,7 @@ use Laravel\Ai\Messages\UserMessage;
 use Laravel\Ai\Responses\AgentResponse;
 use Laravel\Ai\Responses\Data\FinishReason;
 use Laravel\Ai\Responses\Data\Meta;
-use Laravel\Ai\Responses\Data\Usage;
+use Laravel\Ai\Responses\Data\TextUsage;
 use Laravel\Ai\Responses\StructuredTextResponse;
 use Laravel\Ai\Responses\TextResponse;
 
@@ -237,8 +237,8 @@ class FakeBatchGateway implements BatchGateway
             $response instanceof StepResponse => $response,
             $response instanceof StructuredTextResponse => new StepResponse($response->text, [], FinishReason::Stop, $response->usage, $response->meta, $response->structured),
             $response instanceof TextResponse => new StepResponse($response->text, [], FinishReason::Stop, $response->usage, $response->meta),
-            is_array($response) => new StepResponse(json_encode($response) ?: '', [], FinishReason::Stop, new Usage, $meta, $response),
-            default => new StepResponse((string) $response, [], FinishReason::Stop, new Usage, $meta),
+            is_array($response) => new StepResponse(json_encode($response) ?: '', [], FinishReason::Stop, new TextUsage, $meta, $response),
+            default => new StepResponse((string) $response, [], FinishReason::Stop, new TextUsage, $meta),
         };
     }
 }
