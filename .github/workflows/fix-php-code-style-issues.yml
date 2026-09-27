@@ -30,7 +30,7 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: Fix styling
+          commit_message: "style: fix code style"
 
   php-code-style-check:
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository

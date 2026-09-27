@@ -1,37 +1,5 @@
 # Changelog
 
-All notable changes to this package are documented here. The format follows
-[Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
-
-## [Unreleased]
-
-### Changed
-
-- **Breaking:** requires `laravel/ai` ^1.0. Results follow the SDK's 1.0 response shapes: `usage` is a `TextUsage`
-  whose `inputTokens` / `outputTokens` include cached and reasoning tokens, steps and messages carry
-  `reasoning` and `replayBlocks`, and agent middleware receives a `PendingStep` while a request is resolved.
-  Stay on 0.1.x for `laravel/ai` 0.11.
-- CI is split into separate workflows for tests, static analysis and code style, replacing the single
-  `tests.yml`.
-- Tests run against Laravel 12 and 13, with both lowest and stable dependencies, on Ubuntu and Windows.
-- Static analysis uses Larastan at level 6 (`phpstan.neon.dist`, with a baseline), run as `composer analyse`.
-- Code style is fixed automatically on push with Pint (Laravel preset), and checked on pull requests from forks;
-  `composer format` runs it locally.
-
-### Added
-
-- Dependabot keeps GitHub Actions up to date, with patch and minor updates merged automatically.
-- Publishing a GitHub release writes its notes into this changelog.
-- Pull request titles are checked against Conventional Commits.
-- Contributor docs: `CONTRIBUTORS.md`, `AGENTS.md` for AI coding agents, a security policy and a bug report
-  template.
-
-### Fixed
-
-- The assistant message passed to `withMessages()` is typed as a `Collection<int, Message>`, as the SDK expects.
-- A provider result without a usable custom id, or with a custom id that was already returned, now throws a
-  `BatchException` instead of being stored under an empty key or overwriting an earlier result.
-
 ## [0.1.1] - 2026-09-08
 
 ### Added

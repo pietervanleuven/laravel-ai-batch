@@ -1,7 +1,7 @@
 name: PR title
 
 # PRs are squash-merged with the PR title as the commit message, so the title
-# is what lands on main: it must be a Conventional Commit.
+# is what release-please reads: it must be a Conventional Commit.
 on:
   pull_request_target:
     types: [opened, edited, reopened, synchronize]
